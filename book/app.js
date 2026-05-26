@@ -524,30 +524,6 @@ function renderContent(topic, catIndex, topIndex) {
 
 
 
-    let theory = topic.theory || '*Theory content placeholder*';
-    theory = theory.replace(/docs\/images\//g, './docs/images/');
-
-    // Process GitHub-style alert callouts
-    const alertRegex = /^>\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*([\s\S]*?)(?=\n\n|\n[^>]|$)/gm;
-    theory = theory.replace(alertRegex, (match, type, content) => {
-        const iconMap = { 'NOTE': 'info', 'TIP': 'lightbulb', 'IMPORTANT': 'alert-circle', 'WARNING': 'alert-triangle', 'CAUTION': 'zap' };
-        const cleanedContent = content.replace(/^>\s?/gm, '').trim();
-        return `<div class="callout callout-${type.toLowerCase()}">
-            <div class="callout-title"><i data-lucide="${iconMap[type]}"></i>${type}</div>
-            <div class="theory-content-inner">${marked.parse(cleanedContent)}</div>
-        </div>`;
-    });
-
-    // Process Custom [TAG]...[/CALLOUT] style
-    const customCalloutRegex = /\[(WARNING|TIP|NOTE|IMPORTANT|CAUTION)\]([\s\S]*?)\[\/CALLOUT\]/gm;
-    theory = theory.replace(customCalloutRegex, (match, type, content) => {
-        const iconMap = { 'NOTE': 'info', 'TIP': 'lightbulb', 'IMPORTANT': 'alert-circle', 'WARNING': 'alert-triangle', 'CAUTION': 'zap' };
-        return `<div class="callout callout-${type.toLowerCase()}">
-            <div class="callout-title"><i data-lucide="${iconMap[type]}"></i>${type}</div>
-            <div class="theory-content-inner">${marked.parse(content.trim())}</div>
-        </div>`;
-    });
-
     // Build prev/next nav
     const flatIdx = flatTopics.findIndex(t => t.catIndex === catIndex && t.topIndex === topIndex);
     const prev = flatIdx > 0 ? flatTopics[flatIdx - 1] : null;
@@ -576,6 +552,30 @@ function renderContent(topic, catIndex, topIndex) {
             <span class="mark-complete-hint">Saves your progress locally</span>
         </div>
     `;
+
+    let theory = topic.theory || '*Theory content placeholder*';
+    theory = theory.replace(/docs\/images\//g, './docs/images/');
+
+    // Process GitHub-style alert callouts
+    const alertRegex = /^>\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*([\s\S]*?)(?=\n\n|\n[^>]|$)/gm;
+    theory = theory.replace(alertRegex, (match, type, content) => {
+        const iconMap = { 'NOTE': 'info', 'TIP': 'lightbulb', 'IMPORTANT': 'alert-circle', 'WARNING': 'alert-triangle', 'CAUTION': 'zap' };
+        const cleanedContent = content.replace(/^>\s?/gm, '').trim();
+        return `<div class="callout callout-${type.toLowerCase()}">
+            <div class="callout-title"><i data-lucide="${iconMap[type]}"></i>${type}</div>
+            <div class="theory-content-inner">${marked.parse(cleanedContent)}</div>
+        </div>`;
+    });
+
+    // Process Custom [TAG]...[/CALLOUT] style
+    const customCalloutRegex = /\[(WARNING|TIP|NOTE|IMPORTANT|CAUTION)\]([\s\S]*?)\[\/CALLOUT\]/gm;
+    theory = theory.replace(customCalloutRegex, (match, type, content) => {
+        const iconMap = { 'NOTE': 'info', 'TIP': 'lightbulb', 'IMPORTANT': 'alert-circle', 'WARNING': 'alert-triangle', 'CAUTION': 'zap' };
+        return `<div class="callout callout-${type.toLowerCase()}">
+            <div class="callout-title"><i data-lucide="${iconMap[type]}"></i>${type}</div>
+            <div class="theory-content-inner">${marked.parse(content.trim())}</div>
+        </div>`;
+    });
 
     theoryContainer.innerHTML = `
         ${navHtml}
