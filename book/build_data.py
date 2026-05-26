@@ -1,48 +1,21 @@
 import json
 import os
 
-# Map category display names (from metadata.json) to their local folder names.
-CATEGORY_MAP = {
-    "Basic terminologies of Web": ["Basics", "Web_Fundamentals"],
-    "Webpages written in HTML and CSS": ["HTML_CSS", "Practical_Experiments"],
-    "Presentation layer - View": ["Frontend_Advanced", "Practical_Experiments"],
-    "Models - Introduction to databases": ["Data_and_MVC", "Practical_Experiments"],
-    "Controllers - Business logic": ["Data_and_MVC", "Practical_Experiments"],
-    "APIs and REST APIs": ["Backend_Flask", "Practical_Experiments"],
-    "Backend Systems": ["Backend_Flask", "Data_and_MVC", "Practical_Experiments"],
-    "Application Frontend": ["Frontend_Advanced", "Practical_Experiments"],
-    "Application Security": ["APIs_Security"],
-    "Testing of Web Applications": ["Testing_DevOps"],
-    "HTML Evolution and Beyond HTML": ["Frontend_Advanced"],
-    "Application Deployment": ["Testing_DevOps"]
-}
-
-EXP_FOLDER_MAP = {
-    "exp01": "experiment1",
-    "exp02": "experiment-templates",
-    "exp03": "experiment-simple-flask-app",
-    "exp04": "experiment-sqlitedb",
-    "exp05": "experiment-sqlalchemy",
-    "exp06": "experiment-flask-sqlalchemy",
-    "exp07": "experiment-flask-fullstack-setup",
-    "exp08": "experiment-flask-restful",
-    "exp09": "experiment-flask-setup-logging",
-    "exp10": "experiment-fts"
-}
-
-def slugify(text):
-    return text.lower().replace(" ", "_").replace("&", "and")
-
 def load_file_content(filepath):
     if os.path.exists(filepath):
-        with open(filepath, 'r', encoding='utf-8') as f:
-            return f.read()
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                return f.read()
+        except Exception as e:
+            print(f"Error reading file {filepath}: {e}")
+            return f"[Error reading file: {e}]"
     return ""
 
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(script_dir)
     metadata_path = os.path.join(script_dir, "metadata.json")
+
     if not os.path.exists(metadata_path):
         print(f"Error: {metadata_path} not found.")
         return
@@ -54,10 +27,11 @@ def main():
 
     for category_item in data:
         category_name = category_item["category"]
-        dir_names = CATEGORY_MAP.get(category_name, [])
-        
-        if not dir_names:
-            print(f"Warning: Category '{category_name}' not in map.")
+        folder_name = category_item["folder"]
+        folder_path = os.path.join(project_root, folder_name)
+
+        if not os.path.exists(folder_path):
+            print(f"Warning: Week folder '{folder_path}' does not exist.")
             continue
 
         processed_category = {
@@ -65,61 +39,69 @@ def main():
             "topics": []
         }
 
+        print(f"Processing category: {category_name}...")
+
         for topic in category_item["topics"]:
             topic_name = topic["name"]
-            topic_id = topic.get("id")
-            slug = slugify(topic_name)
+            theory_filename = topic.get("theory_file")
             
             md_content = ""
+            if theory_filename:
+                theory_path = os.path.join(folder_path, theory_filename)
+                md_content = load_file_content(theory_path)
+            
             code_content = ""
-            if topic_id:
-                exp_folder = EXP_FOLDER_MAP.get(topic_id)
-                if exp_folder:
-                    exp_path = os.path.join(project_root, "Practical_Experiments", exp_folder)
-                    # Try to load screencast theory if it exists
-                    theory_file = os.path.join(project_root, "Screencast_Theory", f"{topic_id}.md")
-                    if os.path.exists(theory_file):
-                        md_content = load_file_content(theory_file)
-                    
-                    if os.path.exists(exp_path):
-                        for root, dirs, files in os.walk(exp_path):
-                            dirs[:] = [d for d in dirs if not d.startswith('.') and d.lower() != 'bootstrap' and d.lower() != 'node_modules']
-                            for file in files:
-                                if file.startswith('.') or file.endswith('.map'): continue
-                                if file.endswith((".py", ".js", ".css", ".html", ".sql", ".yaml", ".sh", ".txt", ".env")):
-                                    rel_path = os.path.relpath(os.path.join(root, file), exp_path)
-                                    code_content += f"// --- {rel_path} ---\n" + load_file_content(os.path.join(root, file)) + "\n\n"
-            else:
-                # Search across all mapped directories for theory and code files
-                for dir_name in dir_names:
-                    if dir_name == "Practical_Experiments": continue # Skip experiments folder for theory search
-                    dir_path = os.path.join(project_root, dir_name)
-                    if not os.path.exists(dir_path): continue
-                    
-                    for filename in os.listdir(dir_path):
-                        # Match by slug or partial name
-                        if slug in filename.lower() or filename.lower().endswith(f"{slug}.md") or slug.replace("_", "") in filename.lower().replace("_", ""):
-                            file_ext = os.path.splitext(filename)[1].lower()
-                            if file_ext == ".md":
-                                md_content = load_file_content(os.path.join(dir_path, filename))
-                            elif file_ext in [".py", ".js", ".css", ".html", ".sql", ".yaml"]:
-                                code_content += f"// --- {filename} ---\n" + load_file_content(os.path.join(dir_path, filename)) + "\n\n"
 
-            processed_topic = topic.copy()
-            processed_topic["theory"] = md_content
-            processed_topic["code"] = code_content
+            # 1. Single code file
+            code_filename = topic.get("code_file")
+            if code_filename:
+                code_path = os.path.join(folder_path, code_filename)
+                if os.path.exists(code_path):
+                    code_content += f"// --- {code_filename} ---\n" + load_file_content(code_path) + "\n\n"
+
+            # 2. List of specific code files
+            code_filenames = topic.get("code_files", [])
+            for c_file in code_filenames:
+                code_path = os.path.join(folder_path, c_file)
+                if os.path.exists(code_path):
+                    code_content += f"// --- {c_file} ---\n" + load_file_content(code_path) + "\n\n"
+
+            # 3. Whole folder of code recursively (e.g. experiment directories)
+            code_folder = topic.get("code_folder")
+            if code_folder:
+                code_folder_path = os.path.join(folder_path, code_folder)
+                if os.path.exists(code_folder_path):
+                    for root, dirs, files in os.walk(code_folder_path):
+                        # Skip virtual envs, node_modules, caches, system files
+                        dirs[:] = [d for d in dirs if not d.startswith('.') and d.lower() not in ['bootstrap', 'node_modules', '__pycache__', 'instance']]
+                        for file in files:
+                            if file.startswith('.') or file.endswith('.map') or file.endswith('.db') or file.endswith('.pyc') or file.endswith('.png') or file.endswith('.pdf'):
+                                continue
+                            if file.endswith((".py", ".js", ".css", ".html", ".sql", ".yaml", ".yml", ".sh", ".txt", ".env", ".md")):
+                                full_file_path = os.path.join(root, file)
+                                rel_path = os.path.relpath(full_file_path, code_folder_path)
+                                # Prepend the folder name to maintain clarity in UI code view
+                                display_path = os.path.join(code_folder, rel_path).replace("\\", "/")
+                                code_content += f"// --- {display_path} ---\n" + load_file_content(full_file_path) + "\n\n"
+
+            processed_topic = {
+                "name": topic_name,
+                "description": topic.get("description", ""),
+                "theory": md_content,
+                "code": code_content.strip()
+            }
             processed_category["topics"].append(processed_topic)
 
         book_data.append(processed_category)
 
-    # Save aggregated data
+    # Save to book_data.js
     output_js = os.path.join(script_dir, "book_data.js")
     with open(output_js, 'w', encoding='utf-8') as f:
         f.write("const SOURCE_DATA = ")
         json.dump(book_data, f, indent=2)
         f.write(";")
         
-    print(f"Successfully generated {output_js}")
+    print(f"Successfully generated {output_js}!")
 
 if __name__ == "__main__":
     main()

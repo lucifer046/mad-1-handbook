@@ -1,191 +1,306 @@
 [
   {
-    "category": "Basic terminologies of Web",
+    "category": "Week 1: Web Fundamentals & Architecture",
+    "folder": "Week_01",
     "topics": [
       {
         "name": "Overview",
-        "description": "Introduction to Modern Web App Development."
+        "description": "Introduction to Modern Web App Development.",
+        "theory_file": "overview.md"
       },
       {
         "name": "Apps Arch",
-        "description": "Web Applications and their Architectures."
+        "description": "Software Application Layers and MVC Architecture.",
+        "theory_file": "apps_arch.md",
+        "code_file": "apps_arch.py"
       },
       {
         "name": "Web Fundamentals",
-        "description": "Core protocols, DNS, and Networking."
+        "description": "TCP/IP, HTTP, DNS, and Client-Server Communication.",
+        "theory_file": "web_fundamentals.md",
+        "code_file": "web_fundamentals.py"
       },
       {
         "name": "Info Rep",
-        "description": "How information is represented on the web."
+        "description": "Information Representation and encoding systems.",
+        "theory_file": "info_rep.md",
+        "code_file": "info_rep.py"
+      },
+      {
+        "name": "Numericals",
+        "description": "Network latency and bandwidth calculation numericals.",
+        "theory_file": "Numericals.md"
       }
     ]
   },
   {
-    "category": "Webpages written in HTML and CSS",
+    "category": "Week 2: HTML & CSS Basics",
+    "folder": "Week_02",
     "topics": [
       {
-        "name": "HTML",
-        "description": "Structure of the web and the DOM tree."
+        "name": "HTML & DOM Structure",
+        "description": "HyperText Markup Language: The skeleton of the Web and DOM tree.",
+        "theory_file": "html.md",
+        "code_files": ["html.html", "5.html", "6.html", "jan.html", "new.html", "style.css", "styles.css"]
       },
       {
         "name": "CSS",
-        "description": "Styling, Layouts, and Design Systems."
+        "description": "Cascading Style Sheets: Design and layout aesthetics.",
+        "theory_file": "css.md",
+        "code_file": "css.css"
       },
       {
         "name": "Exp 01: Basics",
-        "description": "Practical HTML & CSS Lab.",
-        "id": "exp01"
+        "description": "Experiment 1: Webpages written in HTML and CSS.",
+        "theory_file": "exp01.md",
+        "code_folder": "experiment1"
       }
     ]
   },
   {
-    "category": "Presentation layer - View",
+    "category": "Week 3: Jinja2 Templates & UI/UX",
+    "folder": "Week_03",
     "topics": [
       {
         "name": "UI Design",
-        "description": "Accessibility, UX, and Visual Design."
+        "description": "User Interface Design principles and guidelines.",
+        "theory_file": "ui_design.md"
+      },
+      {
+        "name": "Jinja2 Templating Deep Dive",
+        "description": "Comprehensive guide to f-strings, string.Template, and jinja2.Template with structures, filters, and rendering.",
+        "theory_file": "jinja2_deep_dive.md"
+      },
+      {
+        "name": "Python System & File Utilities",
+        "description": "Mastering Python system variables, argv, and file handlers.",
+        "theory_file": "python_utils.md"
       },
       {
         "name": "Exp 02: Templates",
-        "description": "Jinja2 Dynamic Rendering Lab.",
-        "id": "exp02"
+        "description": "Experiment 2: Templating in UI Development.",
+        "theory_file": "exp02.md",
+        "code_folder": "experiment-templates"
       }
     ]
   },
   {
-    "category": "Models - Introduction to databases",
+    "category": "Week 4: Flask Basics & Databases",
+    "folder": "Week_04",
     "topics": [
       {
-        "name": "SQL",
-        "description": "Relational Databases & SQL Queries."
+        "name": "Flask Framework & Routing",
+        "description": "Introduction to Python Flask micro-framework, CLI options, and templates.",
+        "theory_file": "flask.md",
+        "code_file": "flask.py"
       },
       {
-        "name": "Storage",
-        "description": "Persistent Storage & File Systems."
+        "name": "SQL & Relational Databases",
+        "description": "Structured Query Language basics, constraints, data relationships, and ACID transaction standards.",
+        "theory_file": "sql.md",
+        "code_file": "sql.sql"
       },
       {
-        "name": "Exp 04: SQLite DB",
-        "description": "Raw SQLite Table Setup.",
-        "id": "exp04"
-      },
-      {
-        "name": "Exp 05: SQLAlchemy",
-        "description": "ORM Concepts & Relationships.",
-        "id": "exp05"
-      }
-    ]
-  },
-  {
-    "category": "Controllers - Business logic",
-    "topics": [
-      {
-        "name": "MVC",
-        "description": "Model-View-Controller Design Pattern."
-      },
-      {
-        "name": "Exp 07: Fullstack",
-        "description": "Integrated MVC Setup.",
-        "id": "exp07"
-      }
-    ]
-  },
-  {
-    "category": "APIs and REST APIs",
-    "topics": [
-      {
-        "name": "API",
-        "description": "RESTful Principles & Endpoint Design."
-      },
-      {
-        "name": "Exp 08: Restful",
-        "description": "Flask-RESTful Implementation.",
-        "id": "exp08"
-      }
-    ]
-  },
-  {
-    "category": "Backend Systems",
-    "topics": [
-      {
-        "name": "Flask",
-        "description": "The Flask Framework & Request Lifecycle."
-      },
-      {
-        "name": "Backend",
-        "description": "Backend Architectural Principles."
+        "name": "Persistent Data Storage",
+        "description": "Persistent data storage types and techniques.",
+        "theory_file": "storage.md",
+        "code_file": "storage.py"
       },
       {
         "name": "Exp 03: Flask App",
-        "description": "Basic App Lifecycle Lab.",
-        "id": "exp03"
+        "description": "Experiment 3: Building a Simple Flask Application.",
+        "theory_file": "exp03.md",
+        "code_folder": "experiment-simple-flask-app"
+      },
+      {
+        "name": "Exp 04: SQLite DB",
+        "description": "Experiment 4: Working with SQLite Database.",
+        "theory_file": "exp04.md",
+        "code_folder": "experiment-sqlitedb"
+      },
+      {
+        "name": "Mat",
+        "description": "Matrix calculations and storage backend setup.",
+        "theory_file": "mat/mat.md",
+        "code_folder": "mat"
+      }
+    ]
+  },
+  {
+    "category": "Week 5: ORM & Flask-SQLAlchemy (MVC)",
+    "folder": "Week_05",
+    "topics": [
+      {
+        "name": "MVC",
+        "description": "Model-View-Controller design pattern deep dive.",
+        "theory_file": "mvc.md"
+      },
+      {
+        "name": "Backend",
+        "description": "Backend database architecture and MVC controllers.",
+        "theory_file": "backend.md"
+      },
+      {
+        "name": "Exp 05: SQLAlchemy",
+        "description": "Experiment 5: Object Relational Mapping with SQLAlchemy.",
+        "theory_file": "exp05.md",
+        "code_folder": "experiment-sqlalchemy"
       },
       {
         "name": "Exp 06: Flask-SQLAlchemy",
-        "description": "Database Integration Lab.",
-        "id": "exp06"
+        "description": "Experiment 6: Database integration using Flask-SQLAlchemy.",
+        "theory_file": "exp06.md",
+        "code_folder": "experiment-flask-sqlalchemy"
       },
       {
-        "name": "Exp 09: Logging",
-        "description": "Error Tracking & Monitoring.",
-        "id": "exp09"
+        "name": "Exp 07: Fullstack",
+        "description": "Experiment 7: Flask Full-Stack CRUD Application.",
+        "theory_file": "exp07.md",
+        "code_folder": "experiment-flask-fullstack-setup"
+      },
+      {
+        "name": "SQLAlchemy Notes",
+        "description": "Handy reference guides for database ORM commands.",
+        "theory_file": "SQLAlchemy_notes.md"
+      },
+      {
+        "name": "curl Basic",
+        "description": "Testing web endpoints using curl command-line utility.",
+        "theory_file": "curl_basic.md"
+      },
+      {
+        "name": "Review 1-4",
+        "description": "Comprehensive review of topics from Week 1 to 4.",
+        "theory_file": "review1-4.md"
+      },
+      {
+        "name": "App",
+        "description": "Hands-on implementation of SQLite & SQLAlchemy in Flask.",
+        "theory_file": "App/SQL.md",
+        "code_folder": "App"
+      },
+      {
+        "name": "Rev1Q1May24",
+        "description": "Revision mock questions and solutions for full-stack MVC.",
+        "theory_file": "Rev1Q1May24/revision_notes_mock.md",
+        "code_folder": "Rev1Q1May24"
       }
     ]
   },
   {
-    "category": "Application Frontend",
+    "category": "Week 6: REST APIs",
+    "folder": "Week_06",
+    "topics": [
+      {
+        "name": "API Design & Flask-RESTful",
+        "description": "Introduction to API architecture, REST constraints, and database integration using Flask-RESTful class-based resources.",
+        "theory_file": "api.md",
+        "code_files": ["api.py", "api_week6.py", "api2_week6.py", "app_week6.py", "app1_week6.py", "may_api_week6.py", "new_week6.py", "sep_api_week6.py", "sep_models_week6.py"]
+      },
+      {
+        "name": "Exp 08: Restful",
+        "description": "Experiment 8: Building RESTful APIs with Flask-RESTful.",
+        "theory_file": "exp08.md",
+        "code_folder": "experiment-flask-restful"
+      }
+    ]
+  },
+  {
+    "category": "Week 7: Advanced Frontend",
+    "folder": "Week_07",
     "topics": [
       {
         "name": "Frontend",
-        "description": "Frontend Mechanisms & State Management."
+        "description": "Advanced Javascript DOM manipulation and styles.",
+        "theory_file": "frontend.md",
+        "code_file": "frontend.js"
       },
       {
         "name": "Exp 10: FTS",
-        "description": "Full-Text Search Frontend Integration.",
-        "id": "exp10"
+        "description": "Experiment 10: Full-Text Search integration on Frontend.",
+        "theory_file": "exp10.md",
+        "code_folder": "experiment-fts"
       }
     ]
   },
   {
-    "category": "Application Security",
+    "category": "Week 8: Application Security",
+    "folder": "Week_08",
     "topics": [
       {
-        "name": "Security",
-        "description": "Web Security Threats & Defenses."
+        "name": "Security & Authentication",
+        "description": "Comprehensive guide on web application vulnerabilities (SQLi, XSS, CSRF, HTTPS, Password hashing) and session-based authentication using manual sessions or the Flask-Login extension.",
+        "theory_file": "security.md",
+        "code_files": ["security.py", "session_auth.py", "flask_login.py"]
       },
       {
-        "name": "Session Auth",
-        "description": "Manual Session & Cookie Management."
+        "name": "Web Scaling & Javascript paradigms",
+        "description": "Introduction to Vertical vs Horizontal scaling (Scale Up vs Scale Out), Server-Side vs Client-Side rendering (SSR vs CSR), and JavaScript output and event handling paradigms.",
+        "theory_file": "web_scaling_js.md"
       },
       {
-        "name": "Flask Login",
-        "description": "Standard Flask Authentication."
+        "name": "Practice Questions",
+        "description": "Deep-dive questions and analytical answers covering web security, client-side rendering limitations, WebAssembly (WASM), and the WSGI specification.",
+        "theory_file": "practice_questions.md"
+      },
+      {
+        "name": "Captcha Verification",
+        "description": "Practical implementation of Captcha challenge-response validation in Flask.",
+        "theory_file": "Captcha/EXPLANATION.md",
+        "code_folder": "Captcha"
+      },
+      {
+        "name": "Review 5-8",
+        "description": "Comprehensive milestones review covering MVC, APIs, advanced frontend components, and security.",
+        "theory_file": "review5-8.md"
       }
     ]
   },
   {
-    "category": "Testing of Web Applications",
+    "category": "Week 9: Error Logging & Monitoring",
+    "folder": "Week_09",
     "topics": [
       {
-        "name": "Testing",
-        "description": "Unit, Integration, and System Testing."
+        "name": "Exp 09: Logging",
+        "description": "Experiment 9: Implementing Application Logging and Diagnostics.",
+        "theory_file": "exp09.md",
+        "code_folder": "experiment-flask-setup-logging"
       }
     ]
   },
   {
-    "category": "HTML Evolution and Beyond HTML",
+    "category": "Week 10: Testing of Web Applications",
+    "folder": "Week_10",
     "topics": [
       {
-        "name": "Beyond HTML",
-        "description": "Modern Trends & PWA technology."
+        "name": "Testing with Pytest",
+        "description": "Comprehensive guide to static, dynamic, function, and Flask API testing using Pytest.",
+        "theory_file": "testing.md",
+        "code_files": ["testing.py", "app_week10.py", "test_app_week10.py"],
+        "code_folder": "new"
       }
     ]
   },
   {
-    "category": "Application Deployment",
+    "category": "Week 11: Application Deployment",
+    "folder": "Week_11",
     "topics": [
       {
         "name": "Deployment",
-        "description": "CI/CD, Clouds, and Containerization."
+        "description": "Deployment processes, containers, and server hosting.",
+        "theory_file": "deployment.md",
+        "code_file": "deployment.yaml"
+      }
+    ]
+  },
+  {
+    "category": "Week 12: HTML Evolution & Beyond",
+    "folder": "Week_12",
+    "topics": [
+      {
+        "name": "Beyond HTML",
+        "description": "Modern web frameworks, PWAs, and future web standards.",
+        "theory_file": "beyond_html.md"
       }
     ]
   }
